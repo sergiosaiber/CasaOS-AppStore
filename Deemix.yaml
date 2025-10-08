@@ -1,0 +1,112 @@
+name: deemix
+services:
+  deemix:
+    cpu_shares: 90
+    command: []
+    deploy:
+      resources:
+        limits:
+          memory: 11718M
+    environment:
+      - BUILDDATEENV=20221222
+      - DEEMIX_SINGLE_USER=true
+      - HOME=/root
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - PGID=1000
+      - "PS1=$$$$(whoami)@$$$$(hostname):$$$$(pwd)\\$$$$ "
+      - PUID=1000
+      - S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
+      - TERM=xterm
+      - UMASK_SET=022
+    image: registry.gitlab.com/bockiii/deemix-docker:latest
+    labels:
+      icon: https://deemix.org/wp-content/uploads/logo.png
+    ports:
+      - target: 6595
+        published: "6595"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: bind
+        source: /DATA/Media/Music
+        target: /Music
+      - type: bind
+        source: /DATA/AppData/config
+        target: /config
+    x-casaos:
+      envs:
+        - container: PUID
+          description:
+            en_us: ""
+        - container: PGID
+          description:
+            en_us: ""
+        - container: UMASK_SET
+          description:
+            en_us: ""
+        - container: DEEMIX_SINGLE_USER
+          description:
+            en_us: ""
+        - container: PATH
+          description:
+            en_us: ""
+        - container: PS1
+          description:
+            en_us: ""
+        - container: HOME
+          description:
+            en_us: ""
+        - container: TERM
+          description:
+            en_us: ""
+        - container: S6_CMD_WAIT_FOR_SERVICES_MAXTIME
+          description:
+            en_us: ""
+        - container: BUILDDATEENV
+          description:
+            en_us: ""
+      image: ""
+      ports:
+        - container: "6595"
+          description:
+            en_us: ""
+      volumes:
+        - container: /Music
+          description:
+            en_us: ""
+        - container: /config
+          description:
+            en_us: ""
+    devices: []
+    cap_add: []
+    network_mode: deemix_default
+    privileged: false
+    container_name: ""
+    hostname: ""
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: ""
+  developer: unknown
+  hostname: ""
+  icon: https://deemix.org/wp-content/uploads/logo.png
+  image: null
+  index: /
+  is_uncontrolled: false
+  main: deemix
+  port_map: "6595"
+  scheme: http
+  store_app_id: deemix
+  tagline:
+    en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  thumbnail: ""
+  tips:
+    custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  title:
+    custom: ""
+    en_us: Deemix
